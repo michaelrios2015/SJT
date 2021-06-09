@@ -62,9 +62,7 @@ const columns = [
         })();},[]);
 
         
-          function checked(row) {
-            
-            
+          function checked(row) {      
             console.log(row);
           test.forEach(item => {
             if(row === item.id){
@@ -74,6 +72,18 @@ const columns = [
           setTest(test)
           console.log(test);
         } 
+
+        function deleteRows() {      
+          console.log('hi');
+          let temp = []
+          test.forEach(item => {
+          if(!item.checked){
+            temp.push(item);
+        }
+        })
+        setTest(temp)
+        // console.log(test);
+      }
 
         // let test = [];
 
@@ -112,7 +122,7 @@ const columns = [
      {/* <div style={{ height: 400, width: '100%' }}>
      <DataGrid rows={test} columns={columns} pageSize={10} checkboxSelection onSelectionChange={e => console.log(e)}/>
    </div> */}
-  <button onClick={ev => console.log('hi')}>Click me</button>
+  <button onClick={ev => deleteRows()}>Delete Checked Rows</button>
   </div>
     );
   }
