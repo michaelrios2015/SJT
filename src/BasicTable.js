@@ -43,6 +43,9 @@ const columns = [
       const [total, setTotal ] = useState([]);
       const [rowCount, setRowCount ] = useState([]);
       const [rowsChecked, setRowsChecked ] = useState([]);
+      const [bank, setBank ] = useState([]);
+      const [balance, setBalance ] = useState([]);
+      
 
       const selected = useRef({});
       useEffect(() => {
@@ -114,19 +117,33 @@ const columns = [
         // console.log(test);
       }
 
-      function addUser() {      
+      function addUser(ev) {  
+        ev.preventDefault()    
+        
         console.log('hi');
         let temp = {}
         temp.id = test.length + 1;
-        temp.creditorName = "Fake Bank";
-        temp.balance = 10000
+        temp.creditorName = bank;
+        temp.balance = balance * 1;
         let newTest = [...test, temp]
         setTest(newTest);  
-      console.log(newTest);
+        console.log(newTest);
     }
 
-        // let test = [];
-
+    function onChange(ev){
+      // const change = {};
+      // change[ev.target.name] = ev.target.value;
+      // console.log(change);
+      if (ev.target.name === 'bank'){
+        setBank(ev.target.value)
+      }
+      if (ev.target.name === 'balance'){
+        setBalance(ev.target.value)
+      }
+      console.log(bank)
+      console.log(balance)
+    }
+    
     return (
       <div>
   <TableContainer component={Paper}>
@@ -172,8 +189,18 @@ const columns = [
 
   <button onClick={ev => deleteRows()}>Delete Checked Rows</button>
 
-  <button onClick={ev => addUser()}>Add Random User</button>
+  <br></br>
+  <br></br>
+        <form onSubmit = { ev => addUser(ev) }>
+            Bank
+            <input name='bank'  value = { bank } onChange = { onChange }/>
+            Balance
+            <input name='balance' value = { balance } onChange = { onChange }/>
+            
+            <button >SAVE</button>
+        </form>
 
+  
   </div>
     );
   }
