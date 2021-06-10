@@ -40,6 +40,9 @@ const columns = [
       const classes = useStyles();
 
       const [test, setTest ] = useState([]);
+      const [total, setTotal ] = useState([]);
+      const [rowCount, setRowCount ] = useState([]);
+      const [rowsChecked, setRowsChecked ] = useState([]);
 
       const selected = useRef({});
       useEffect(() => {
@@ -54,6 +57,7 @@ const columns = [
             console.log(res);
             res.forEach(element =>  element.checked = false);
             setTest(res)
+            setRowCount(res.length)
     
           } catch(e) {
             // Process any errors here.
@@ -61,7 +65,20 @@ const columns = [
           }
         })();},[]);
 
+        useEffect(() => {
+         let total = 0;
+          test.forEach(item => {
+            total += item.balance;
+          })
+          setTotal(total)
+          console.log(total);
+          setRowCount(test.length)
+          setRowsChecked(0)  
+        },[test]);
+
+        // let rowCount = test.length();
         
+
           function checked(row) {      
             console.log(row);
           test.forEach(item => {
@@ -69,12 +86,23 @@ const columns = [
             item.checked = !item.checked
           }
           })
+
+          let checked = 0 
+          test.forEach(item => {
+            if(item.checked){
+            checked++;
+          }
+          })
+
           setTest(test)
+          setRowsChecked(checked)  
+
+
           console.log(test);
         } 
 
         function deleteRows() {      
-          console.log('hi');
+          // console.log('hi');
           let temp = []
           test.forEach(item => {
           if(!item.checked){
@@ -82,6 +110,7 @@ const columns = [
         }
         })
         setTest(temp)
+        setRowsChecked(0)  
         // console.log(test);
       }
 
@@ -93,7 +122,7 @@ const columns = [
       <Table  className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>test</TableCell>
+            <TableCell></TableCell>
             <TableCell>Creditor</TableCell>
             <TableCell align="right">First Name</TableCell>
             <TableCell align="right">Last Name</TableCell>
@@ -116,13 +145,22 @@ const columns = [
               <TableCell align="right">{row.balance}</TableCell>
             </TableRow>
           ))}
+              <TableRow>
+              <TableCell align="left"></TableCell>
+              <TableCell align="left"></TableCell>
+              <TableCell align="left"></TableCell>
+              <TableCell align="left"></TableCell>
+              <TableCell align="left"></TableCell>
+              <TableCell align="right">TOTAL:  {total}</TableCell>
+              </TableRow>
         </TableBody>
       </Table>
     </TableContainer>
-     {/* <div style={{ height: 400, width: '100%' }}>
-     <DataGrid rows={test} columns={columns} pageSize={10} checkboxSelection onSelectionChange={e => console.log(e)}/>
-   </div> */}
+            <p>Total Rows: {rowCount}</p>
+            <p>Checked Rows: {rowsChecked}</p>
+
   <button onClick={ev => deleteRows()}>Delete Checked Rows</button>
+
   </div>
     );
   }
