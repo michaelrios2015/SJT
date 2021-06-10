@@ -81,7 +81,7 @@ const columns = [
 
           function checked(row) {      
             console.log(row);
-          test.forEach(item => {
+            test.forEach(item => {
             if(row === item.id){
             item.checked = !item.checked
           }
@@ -113,6 +113,17 @@ const columns = [
         setRowsChecked(0)  
         // console.log(test);
       }
+
+      function addUser() {      
+        console.log('hi');
+        let temp = {}
+        temp.id = test.length + 1;
+        temp.creditorName = "Fake Bank";
+        temp.balance = 10000
+        let newTest = [...test, temp]
+        setTest(newTest);  
+      console.log(newTest);
+    }
 
         // let test = [];
 
@@ -160,6 +171,8 @@ const columns = [
             <p>Checked Rows: {rowsChecked}</p>
 
   <button onClick={ev => deleteRows()}>Delete Checked Rows</button>
+
+  <button onClick={ev => addUser()}>Add Random User</button>
 
   </div>
     );
