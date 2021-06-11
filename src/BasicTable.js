@@ -128,6 +128,8 @@ const useStyles = makeStyles({
       temp.checked = false;
       let newTest = [...test, temp]
       setTest(newTest);  
+      setBank('');
+      setBalance('');
       // console.log(newTest);
   }
 
@@ -186,20 +188,22 @@ const useStyles = makeStyles({
           </TableBody>
         </Table>
       </TableContainer>
-          <p>Total Rows: {rowCount}</p>
-          <p>Checked Rows: {rowsChecked}</p>
-
-      <button onClick={ev => deleteRows()}>Delete Checked Rows</button>
-
       <br></br>
+      <button onClick={ev => deleteRows()}>Delete Checked Rows</button>        
+      <div className = { 'side' } >      
+        <p>Total Rows: {rowCount}</p>
+        <p>Checked Rows: {rowsChecked}</p>
+      </div>      
       <br></br>
       <form onSubmit = { ev => addUser(ev) }>
+        <div className = { 'side' }>
           Bank
           <input name='bank'  value = { bank } onChange = { onChange }/>
           Balance
           <input name='balance' value = { balance } onChange = { onChange }/>
-          
-          <button >SAVE</button>
+        </div>
+          <br></br>
+          <button >Add Balance</button>
       </form>
   </div>
   );
